@@ -92,18 +92,21 @@ def sendEmail(message, recipient):
         server.login(gmail_user, gmail_pwd)
         server.sendmail(gmail_user, [recipient.email], smtpMessage.as_string())
         server.close()
+        print(f'Email sent')
     except:
         print(f'Failed to send mail to: {recipient}')
         raise
 
 
-def notify(source, target):
-    budget = 20  # €
+def notify(source, target, budget):
+    if budget is None:
+        budget = 20 #€
+
     message = f'''Ciao {source.name},<br />
     <br />
     Il Natale è alle porte, e Santa Claus ha bisogno del tuo aiuto per portare i regali! 🎁<br />
     <br />
-    La persona a cui dovrai (segretamente! 🙊) fare il regalo è: <strong>{target.name}</strong>!<br />
+    La persona a cui dovrai (segretamente! 🙊) fare il regalo è: <strong>{target.name}</strong> ({target.email})!<br />
     Ti ricordo che puoi scegliere un unico consigliere con cui confidarti, e che il budget massimo è di {budget}€.<br />
     <br />
     Buon lavoro, e che lo spirito dei maglioni brutti sia con te! 😜<br />
@@ -111,6 +114,8 @@ def notify(source, target):
     Babbo Natale 🎅<br />
     <img src="https://media.giphy.com/media/3o6ZtdulyqqoJjWB6U/giphy.gif" />'''
 
+    # print(message)
+    # print("<<<<<<<<<<<<<<<")
     sendEmail(message, source)
 
 
@@ -120,6 +125,8 @@ if __name__ == '__main__':
         'participants', help='File containing csv for participants')
     parser.add_argument("-n", "--exclusions",
                         help="File containing csv for exclusions")
+    parser.add_argument("-b", "--budget",
+                        help="Maximum budget (in €)")
     args = parser.parse_args()
 
     # Check secrets file
@@ -144,6 +151,10 @@ if __name__ == '__main__':
 
                 exclusions.append(Exclusion(participant1, participant2))
 
+    budget = None
+    if args.budget:
+        budget = args.budget
+
     ss = SecretSanta(participants, exclusions)
     assignments = ss.assign()
 
@@ -152,4 +163,5 @@ if __name__ == '__main__':
     for participant in participants:
         target = [p for p in participants if p.email ==
                   assignments[participant.email]][0]
-        notify(participant, target)
+        
+        notify(participant, target, budget)
