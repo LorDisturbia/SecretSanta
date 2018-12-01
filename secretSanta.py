@@ -114,8 +114,7 @@ def notify(source, target, budget):
     Babbo Natale 🎅<br />
     <img src="https://media.giphy.com/media/3o6ZtdulyqqoJjWB6U/giphy.gif" />'''
 
-    # print(message)
-    # print("<<<<<<<<<<<<<<<")
+    # print(f"{source.name} -> {target.name}")
     sendEmail(message, source)
 
 
