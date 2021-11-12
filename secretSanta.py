@@ -55,7 +55,7 @@ class SecretSanta(object):
 
     def areAssignmentsAcceptable(self, assignments):
         for exclusion in self.exclusions:
-            if assignments[exclusion.user1.email] == exclusion.user2.email or assignments[exclusion.user2.email] == exclusion.user1.email:
+            if assignments[exclusion.user1.email] == exclusion.user2.email:
                 return False
 
         return True
