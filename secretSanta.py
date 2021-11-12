@@ -102,17 +102,21 @@ def notify(source, target, budget):
     if budget is None:
         budget = 20 #€
 
-    message = f'''Ciao {source.name},<br />
+    message = f'''
+    Ciao {source.name},<br />
     <br />
-    Il Natale è alle porte, e Santa Claus ha bisogno del tuo aiuto per portare i regali! 🎁<br />
+    Ho bisogno di te!<br />
+    Come saprai, questo Natale sarà molto particolare. E io, Babbo Natale, lo so bene.<br />
+    Tra l'età e l'obesità invalidante che mi contraddistingue, non credo che intrufolarmi nei camini sia la scelta più responsabile.<br />
     <br />
-    La persona a cui dovrai (segretamente! 🙊) fare il regalo è: <strong>{target.name}</strong> ({target.email})!<br />
+    La tua missione è diventare un portatore sano di regali. E la persona a cui dovrai potrarlo è: <strong>{target.name}</strong> ({target.email})!<br />
     Ti ricordo che puoi scegliere un unico consigliere con cui confidarti, e che il budget massimo è di {budget}€.<br />
     <br />
     Buon lavoro, e che lo spirito dei maglioni brutti sia con te! 😜<br />
     <br />
     Babbo Natale 🎅<br />
-    <img src="https://media.giphy.com/media/3o6ZtdulyqqoJjWB6U/giphy.gif" />'''
+    <img src="https://media.giphy.com/media/3o6ZtdulyqqoJjWB6U/giphy.gif" />
+    '''
 
     # print(f"{source.name} -> {target.name}")
     sendEmail(message, source)
